@@ -9,7 +9,7 @@
 // @grant        none
 // ==/UserScript==
 
-let origWidth, channels, bottombar, overflowText, i, origHeight;
+let origWidth, channels, bottombar, overflowText, i, origHeight, playButton;
 
 function displayText(e) {
     if (e) {
@@ -20,6 +20,14 @@ function displayText(e) {
         overflowText[0].style.opacity = 0;
         overflowText[1].style.opacity = 0;
         document.querySelectorAll(".Button-sc-1dqy6lx-0")[1].style.opacity = 0;
+    }
+}
+
+function displayControls(e) {
+    if (e) {
+        playButton.style.opacity = 1;
+    } else {
+        playButton.style.opacity = 0;
     }
 }
 
@@ -41,6 +49,9 @@ setTimeout(() => {
     overflowText[1].style.transition = "opacity 0.3s";
     document.querySelectorAll(".Button-sc-1dqy6lx-0")[1].style.transition = "opacity 0.3s";
     displayText(false);
+    playButton = document.querySelectorAll(".vnCew8qzJq3cVGlYFXRI")[0];
+    playButton.style.transition = "opacity 0.3s";
+    displayControls(false);
 
     channels = document.querySelectorAll(".BdcvqBAid96FaHAmPYw_")[0];
     handleChannel(channels, "w");
@@ -55,6 +66,7 @@ setTimeout(() => {
         }
         if (event.pageY >= window.innerHeight - 30) {
             bottombar.style.height = origHeight + "px";
+            displayControls(true);
         }
     };
 
@@ -65,5 +77,6 @@ setTimeout(() => {
 
     bottombar.onmouseleave = () => {
         bottombar.style.height = 0 + "px";
+        displayControls(false);
     };
 }, 5000);
