@@ -9,17 +9,17 @@
 // @grant        none
 // ==/UserScript==
 
-let origWidth, channels, bottombar, overflowText, i, origHeight, playButton;
+let origWidth, channels, bottombar, overflowText, i, origHeight, playButton, libraryButton;
 
 function displayText(e) {
     if (e) {
         overflowText[0].style.opacity = 1;
         overflowText[1].style.opacity = 1;
-        document.querySelectorAll(".Button-sc-1dqy6lx-0")[1].style.opacity = 1;
+        libraryButton.style.opacity = 1;
     } else {
         overflowText[0].style.opacity = 0;
         overflowText[1].style.opacity = 0;
-        document.querySelectorAll(".Button-sc-1dqy6lx-0")[1].style.opacity = 0;
+        libraryButton.style.opacity = 0;
     }
 }
 
@@ -43,11 +43,27 @@ function handleChannel(channel, e) {
     }
 }
 
-setTimeout(() => {
+function initializeText() {
     overflowText = document.querySelectorAll(".bkjCej");
     overflowText[0].style.transition = "opacity 0.3s";
     overflowText[1].style.transition = "opacity 0.3s";
-    document.querySelectorAll(".Button-sc-1dqy6lx-0")[1].style.transition = "opacity 0.3s";
+    libraryButton.style.transition = "opacity 0.3s";
+}
+
+function checkLibButton() {
+    setTimeout(() => {
+        overflowText = document.querySelectorAll(".bkjCej");
+        if (overflowText[0].innerText == "Home") {
+            console.log("detected");
+            initializeText();
+        }
+    }, 100);
+}
+
+setTimeout(() => {
+    libraryButton = document.querySelectorAll(".Button-sc-1dqy6lx-0")[1];
+    libraryButton.onclick = checkLibButton;
+    initializeText();
     displayText(false);
     playButton = document.querySelectorAll(".vnCew8qzJq3cVGlYFXRI")[0];
     playButton.style.transition = "opacity 0.3s";
