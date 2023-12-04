@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Spotify Collapsible UI
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  try to take over the world!
 // @author       You
 // @match        *://open.spotify.com/*
@@ -61,7 +61,7 @@ function checkLibButton() {
 }
 
 setTimeout(() => {
-    libraryButton = document.querySelectorAll(".Button-sc-1dqy6lx-0")[1];
+    libraryButton = document.querySelectorAll(".Button-sc-1dqy6lx-0")[0];
     libraryButton.onclick = checkLibButton;
     initializeText();
     displayText(false);
